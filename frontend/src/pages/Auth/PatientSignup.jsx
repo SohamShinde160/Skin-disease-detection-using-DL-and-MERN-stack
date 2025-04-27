@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-scroll";
 import { FiMenu, FiX } from "react-icons/fi";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const PatientSignup = () => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -33,10 +35,14 @@ const PatientSignup = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div className="font-semibold">
       {/* Navigation */}
-      <nav className={`border border-gray-200 bg-white  z-50 rounded-[50px] shadow-lg py-3 px-4 md:px-8
+      <nav className={`border border-gray-200 bg-white z-50 rounded-[50px] shadow-lg py-3 px-4 md:px-8
         ${window.innerWidth < 768 ? 
           'fixed top-4 left-1/2 transform -translate-x-1/2 w-[90%]' : 
           'absolute w-[90%] mt-4 ml-16'}`}
@@ -195,13 +201,24 @@ const PatientSignup = () => {
             onChange={handleChange}
             className="w-full p-2 sm:p-3 mb-3 sm:mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
           />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            onChange={handleChange}
-            className="w-full p-2 sm:p-3 mb-3 sm:mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
-          />
+          
+          {/* Password Input with Eye Button */}
+          <div className="relative mb-3 sm:mb-4">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="Password"
+              onChange={handleChange}
+              className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+            />
+            <div
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-600"
+              onClick={togglePasswordVisibility}
+            >
+              {showPassword ? <AiOutlineEyeInvisible size={20} /> : <AiOutlineEye size={20} />}
+            </div>
+          </div>
+
           <button
             type="submit"
             className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-2 sm:p-3 rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all text-sm sm:text-base"
