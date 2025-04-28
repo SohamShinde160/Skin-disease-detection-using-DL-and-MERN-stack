@@ -116,16 +116,15 @@ const DoctorLogin = () => {
             >
               About our Team
             </li>
-            <li>
-              <Link
-                to="dermatologist-list"
-                smooth={true}
-                duration={500}
-                className="cursor-pointer hover:text-blue-500"
+            <li
+                onClick={() => {
+                  navigate("/admin-entry");
+                  setMobileMenuOpen(false);
+                }}
+                className="cursor-pointer hover:text-blue-500 text-center "
               >
-                Dermatologist List
-              </Link>
-            </li>
+                Restricted Route
+              </li>
           </ul>
 
           <div className="hidden md:block">
@@ -173,19 +172,12 @@ const DoctorLogin = () => {
               </li>
               <li
                 onClick={() => {
+                  navigate("/admin-entry");
                   setMobileMenuOpen(false);
                 }}
-                className="text-center py-2"
+                className="cursor-pointer hover:text-blue-500 text-center py-2"
               >
-                <Link
-                  to="dermatologist-list"
-                  smooth={true}
-                  duration={500}
-                  className="cursor-pointer hover:text-blue-500"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Dermatologist List
-                </Link>
+                Restricted Route
               </li>
               <li className="text-center">
                 <Link

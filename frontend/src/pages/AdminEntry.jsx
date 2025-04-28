@@ -1,60 +1,45 @@
-import React from "react";
-import { Link } from "react-scroll";
+import React from 'react'
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
-import { FaLinkedin } from "react-icons/fa";
+import { Link } from "react-scroll";
 
-const teamMembers = [
-  {
-    name: "Soham Shinde",
-    role: "Full Stack Developer",
-    image: "/img/soham.jpg",
-    linkedin: "https://www.linkedin.com/in/soham-s-shinde-16012004ss/",
-  },
-  {
-    name: "Vighnesh Patil",
-    role: "Machine Learning Engineer",
-    image: "/img/vighnesh.jpg",
-    linkedin: "https://www.linkedin.com/in/vighnesh-patil-bb7789230?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
-  },
-  {
-    name: "Vyankatesh Kumbhar",
-    role: "Python Developer",
-    image: "/img/vyankatesh.jpg",
-    linkedin: "https://www.linkedin.com/in/vyankatesh-kumbhar?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
-  },
-  {
-    name: "Vedant Tambe",
-    role: "ML Model Integration",
-    image: "/img/vedant.jpg",
-    linkedin: "https://www.linkedin.com/in/vedant-tambe-50277a233?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
-  },
-];
-
-const MeetOurTeam = () => {
+const AdminEntry = () => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
   return (
-    <div className="font-semibold">
+    <div className="min-h-screen font-semibold bg-gray-100 flex flex-col">
       <nav
-        className={`border border-gray-200 bg-white  z-50 rounded-[50px] shadow-lg py-3 px-4 md:px-8
-        ${window.innerWidth < 768 ? 
-          'fixed top-4 left-1/2 transform -translate-x-1/2 w-[90%]' : 
-          'absolute w-[90%] mt-4 ml-16'}`}
+        className={`border border-gray-200 bg-white z-50 rounded-[50px] shadow-lg py-3 px-4 md:px-8 ${
+          windowWidth < 768
+            ? "fixed top-4 left-1/2 transform -translate-x-1/2 w-[90%]"
+            : "absolute w-[90%] mt-4 ml-16"
+        }`}
       >
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div onClick={() => navigate("/")}>
+          <div onClick={() => navigate("/")} className="cursor-pointer">
             <img
               src="img/newlogo.png"
               alt="Logo"
-              className="h-12 scale-125 pl-3 md:h-16 cursor-pointer"
+              className="h-10 md:h-14 scale-125 pl-3"
             />
           </div>
+          
           {/* Mobile menu button */}
           <div className="md:hidden">
             <button
@@ -94,7 +79,7 @@ const MeetOurTeam = () => {
                   navigate("/admin-entry");
                   setMobileMenuOpen(false);
                 }}
-                className="cursor-pointer hover:text-blue-500 text-center "
+                className="cursor-pointer hover:text-blue-500 text-center"
               >
                 Restricted Route
               </li>
@@ -152,7 +137,7 @@ const MeetOurTeam = () => {
               >
                 Restricted Route
               </li>
-              <li className="text-center">
+              <li className="text-center pt-2">
                 <Link
                   to="get-started-section"
                   smooth={true}
@@ -168,46 +153,24 @@ const MeetOurTeam = () => {
         )}
       </nav>
 
-      {/* Team Section */}
-      <section className="min-h-screen bg-gray-100 py-8 md:py-12 relative">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-4 mt-20 md:mb-6">
-            Meet Our Team
+      <div className="flex-1 flex items-center justify-center p-4 mt-20 md:mt-0">
+        <div className="p-4 py-12 md:p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow text-center w-full max-w-xs md:w-72">
+          <h2 className="text-lg md:text-xl font-bold mb-4 md:mb-4 text-gray-700">
+            Admin
           </h2>
-          <div className="w-12 md:w-16 mx-auto mb-6 md:mb-8 border-t-2 md:border-t-4 border-blue-500"></div>
-
-          <div className="flex flex-wrap justify-center gap-4 md:gap-6 lg:gap-8 px-2 sm:px-0">
-            {teamMembers.map((member, index) => (
-              <div
-                key={index}
-                className="bg-white shadow-md md:shadow-lg rounded-lg p-4 md:p-6 flex flex-col items-center w-full sm:w-56 md:w-64"
-              >
-                <img
-                  src={member.image}
-                  alt={member.name}
-                  className="w-20 h-20 md:w-32 md:h-32 object-cover rounded-full mb-3 md:mb-4 border-2 md:border-4 border-blue-400"
-                />
-                <h3 className="text-lg md:text-xl font-bold text-gray-700">{member.name}</h3>
-                <p className="text-sm md:text-base text-gray-500">{member.role}</p>
-
-                {/* LinkedIn Link */}
-                {member.linkedin && (
-                  <a
-                    href={member.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-500 text-sm md:text-base mt-2 flex items-center hover:underline transition"
-                  >
-                    LinkedIn &nbsp; <FaLinkedin></FaLinkedin>
-                  </a>
-                )}
-              </div>
-            ))}
-          </div>
+          <button
+            onClick={() => navigate("/admin-login")}
+            className="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg w-full hover:from-purple-600 hover:to-purple-700 transition-all text-sm md:text-base"
+          >
+            Admin Login
+          </button>
+          <p className="mt-2 md:mt-3 text-xs text-gray-500">
+            For administrative access only
+          </p>
         </div>
-      </section>
+      </div>
     </div>
-  );
-};
+  )
+}
 
-export default MeetOurTeam;
+export default AdminEntry

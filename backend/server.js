@@ -38,12 +38,14 @@ const patientRoutes = require("./routes/patientRoutes");
 const doctorRoutes = require("./routes/doctorRoutes");
 const appointmentRoutes = require("./routes/appointmentRoutes");
 const detectionHistoryRoutes = require("./routes/detectionHistoryRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 
 // ✅ API Routes
 app.use("/api/patients", patientRoutes);
 app.use("/api/doctors", doctorRoutes);
 app.use("/api/appointments", appointmentRoutes);
 app.use("/api/detection-history", detectionHistoryRoutes);
+app.use("/api/admin", adminRoutes);
 
 // ✅ Basic API Test
 app.get("/", (req, res) => {

@@ -172,16 +172,15 @@ const Home = () => {
             >
               About our Team
             </li>
-            <li>
-              <Link
-                to="dermatologist-list"
-                smooth={true}
-                duration={500}
-                className="cursor-pointer hover:text-blue-500"
+            <li
+                onClick={() => {
+                  navigate("/admin-entry");
+                  setMobileMenuOpen(false);
+                }}
+                className="cursor-pointer hover:text-blue-500 text-center "
               >
-                Dermatologist List
-              </Link>
-            </li>
+                Restricted Route
+              </li>
           </ul>
 
           <div className="hidden md:block">
@@ -229,19 +228,12 @@ const Home = () => {
               </li>
               <li
                 onClick={() => {
+                  navigate("/admin-entry");
                   setMobileMenuOpen(false);
                 }}
-                className="text-center py-2"
+                className="cursor-pointer hover:text-blue-500 text-center py-2"
               >
-                <Link
-                  to="dermatologist-list"
-                  smooth={true}
-                  duration={500}
-                  className="cursor-pointer hover:text-blue-500"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Dermatologist List
-                </Link>
+                Restricted Route
               </li>
               <li className="text-center">
                 <Link
@@ -316,6 +308,7 @@ const Home = () => {
                 Signup
               </button>
             </div>
+
           </div>
 
           <img
@@ -500,7 +493,7 @@ const Home = () => {
                 <div
                   key={card.id}
                   onClick={() => handleCardClick(index)}
-                  className={`flex justify-center items-center rounded-md cursor-pointer 
+                  className={`flex justify-center items-center rounded-md cursor-pointer
                     h-16 md:h-20 text-2xl transition-all duration-200
                     ${matchedCards.includes(card.id) ? "bg-green-100" : "bg-blue-100"}
                     ${flippedCards.includes(index) ? "transform rotate-y-180" : ""}`}

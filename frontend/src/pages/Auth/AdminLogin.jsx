@@ -1,17 +1,18 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-scroll";
-import { patientLoginThunk } from "../../redux/slices/authSlice";
+import { adminLoginThunk } from "../../redux/slices/authSlice";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { FiMenu, FiX, FiEye, FiEyeOff } from "react-icons/fi";
+import { FiEye, FiEyeOff, FiMenu, FiX } from "react-icons/fi";
+import { Link } from "react-scroll";
 
-const PatientLogin = () => {
+const AdminLogin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isAuthenticated, user } = useSelector((state) => state.auth);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { isAuthenticated, role } = useSelector((state) => state.auth);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -20,35 +21,41 @@ const PatientLogin = () => {
 
   const [showPassword, setShowPassword] = useState(false);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   useEffect(() => {
-    if (isAuthenticated && user) {
-      console.log("Redirecting to dashboard...");
-      navigate("/patient-dashboard");
+    if (isAuthenticated && role === "admin") {
+      navigate("/admin-dashboard");
     }
-  }, [isAuthenticated, user, navigate]);
+  }, [isAuthenticated, role, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const result = await dispatch(patientLoginThunk(formData));
+    const result = await dispatch(adminLoginThunk(formData));
 
-    if (patientLoginThunk.fulfilled.match(result)) {
-      console.log("Login successful, redirecting...");
-      toast.success("Login successful!");
+    if (adminLoginThunk.fulfilled.match(result)) {
+      toast.success("Admin login successful!");
       setTimeout(() => {
-        navigate("/patient-dashboard");
-      }, 2000);
+        navigate("/admin-dashboard");
+      }, 1500);
     } else {
-      console.log("Login failed, staying on login page.");
-      toast.error("Invalid credentials. Please try again.");
+      toast.error("Invalid admin credentials. Please try again.");
     }
-  };
-
-  const toggleMobileMenu = () => {
-    setMobileMenuOpen(!mobileMenuOpen);
   };
 
   const togglePasswordVisibility = () => {
@@ -56,10 +63,10 @@ const PatientLogin = () => {
   };
 
   return (
-    <div className="font-semibold">
+    <div className="min-h-screen bg-gray-100 flex flex-col">
       <ToastContainer
         position="top-right"
-        autoClose={2000}
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -69,20 +76,20 @@ const PatientLogin = () => {
         pauseOnHover
       />
 
-      {/* Navigation */}
-      <nav className={`border border-gray-200 bg-white z-50 rounded-[50px] shadow-lg py-3 px-4 md:px-8
-        ${window.innerWidth < 768 ?
-          'fixed top-4 left-1/2 transform -translate-x-1/2 w-[90%]' :
-          'absolute w-[90%] mt-4 ml-16'}`}
-      >
+      <nav className={`border border-gray-200 bg-white z-50 rounded-[50px] shadow-lg py-3 px-4 md:px-8 ${
+        windowWidth < 768 ? 
+        'fixed top-4 left-1/2 transform -translate-x-1/2 w-[90%]' : 
+        'absolute w-[90%] mt-4 ml-16'
+      }`}>
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div onClick={() => navigate("/")}>
+          <div onClick={() => navigate("/")} className="cursor-pointer">
             <img
               src="img/newlogo.png"
               alt="Logo"
-              className="h-12 scale-125 pl-3 md:h-16 cursor-pointer"
+              className="h-10 md:h-14 scale-125 pl-3"
             />
           </div>
+          
           {/* Mobile menu button */}
           <div className="md:hidden">
             <button
@@ -171,7 +178,7 @@ const PatientLogin = () => {
               >
                 Restricted Route
               </li>
-              <li className="text-center">
+              <li className="text-center pt-2">
                 <Link
                   to="get-started-section"
                   smooth={true}
@@ -187,62 +194,70 @@ const PatientLogin = () => {
         )}
       </nav>
 
-      {/* Login Content */}
-      <div className="flex flex-col lg:flex-row justify-center items-center gap-6 lg:gap-12 pt-20 md:pt-24 px-4 min-h-[100vh] bg-gradient-to-r from-blue-50 to-purple-50">
-        <form onSubmit={handleSubmit} className="bg-white p-6 sm:p-8 shadow-xl sm:shadow-2xl rounded-xl w-full max-w-md relative">
-          <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">Patient Login</h2>
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
-          />
-          
-          <div className="relative mb-4">
-            <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              placeholder="Password"
-              value={formData.password}
-              onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base pr-10"
-            />
-            <div
-              className="absolute inset-y-0 right-3 flex items-center cursor-pointer text-gray-500"
-              onClick={togglePasswordVisibility}
-            >
-              {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-3 rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all text-sm sm:text-base"
-          >
-            Login
-          </button>
-
-          <h2 className="text-center mx-auto mt-4 font-semibold text-gray-600 text-sm sm:text-base">
-            New User?{" "}
-            <span
-              onClick={() => navigate("/patient-signup")}
-              className="text-blue-600 cursor-pointer hover:text-blue-700 transition-colors"
-            >
-              Signup Here
-            </span>
+      <div className="flex-1 font-semibold flex items-center justify-center p-4 mt-16 md:mt-20">
+        <div className="bg-white p-6 md:p-8 rounded-lg shadow-lg w-full max-w-md">
+          <h2 className="text-xl md:text-2xl font-bold text-center text-gray-800 mb-4 md:mb-6">
+            Admin Login
           </h2>
-        </form>
-
-        <img
-          src="img/Banner7.jpg"
-          className="shadow-xl sm:shadow-2xl rounded-xl w-[80%] md:full max-w-md block"
-          alt="Medical illustration"
-        />
+          <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+            <div>
+              <label htmlFor="email" className="block text-gray-700 font-medium mb-1 md:mb-2 text-sm md:text-base">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full px-3 py-2 md:px-4 md:py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
+                placeholder="Enter admin email"
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="password" className="block text-gray-700 font-medium mb-1 md:mb-2 text-sm md:text-base">
+                Password
+              </label>
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className="w-full px-3 py-2 md:px-4 md:py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
+                  placeholder="Enter admin password"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+                >
+                  {showPassword ? <FiEyeOff size={16} /> : <FiEye size={16} />}
+                </button>
+              </div>
+            </div>
+            <div>
+              <button
+                type="submit"
+                className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300 text-sm md:text-base"
+              >
+                Login
+              </button>
+            </div>
+            <br></br>
+            {/* <div className="text-center text-xs md:text-sm text-gray-500">
+              <p>Use the predefined admin credentials:</p>
+              <p>Email: rohitadmin45@ymail.com</p>
+              <p>Password: Rohitbhai@45</p>
+            </div> */}
+          </form>
+        </div>
       </div>
     </div>
   );
 };
 
-export default PatientLogin;
+export default AdminLogin;

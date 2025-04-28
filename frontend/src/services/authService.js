@@ -29,3 +29,13 @@ export const doctorLogout = async () => {
   await axiosInstance.post("/doctors/logout");
   return { message: "Doctor logged out successfully" };
 };
+
+export const adminLogin = async (email, password) => {
+  const response = await axiosInstance.post("/admin/login", { email, password });
+  return response.data;
+};
+
+export const adminLogout = async () => {
+  await axiosInstance.post("/admin/logout");
+  return { message: "Admin logged out successfully" };
+};

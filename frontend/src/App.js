@@ -4,9 +4,14 @@ import PatientSignup from "./pages/Auth/PatientSignup";
 import PatientLogin from "./pages/Auth/PatientLogin";
 import DoctorSignup from "./pages/Auth/DoctorSignup";
 import DoctorLogin from "./pages/Auth/DoctorLogin";
+import AdminLogin from "./pages/Auth/AdminLogin";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PatientDashboard from "./pages/Patient/Dashboard";
 import DoctorDashboard from "./pages/Doctor/Dashboard";
+import AdminDashboard from "./pages/Admin/Dashboard";
+import AdminPatients from "./pages/Admin/Patients";
+import AdminDoctors from "./pages/Admin/Doctors";
+import AdminDetectionHistory from "./pages/Admin/DetectionHistory";
 import MyAppointments from "./pages/Patient/MyAppointments";
 import FindDermatologist from "./pages/Patient/FindDermatologist";
 import BookAppointment from "./pages/Patient/BookAppointment";
@@ -16,6 +21,7 @@ import ConfirmAppointment from "./pages/Patient/ConfirmAppointment";
 import EditDoctorProfile from "./pages/Doctor/EditProfile";
 import Details from "./pages/Details";
 import Team from "./pages/Team";
+import AdminEntry from "./pages/AdminEntry";
 
 function App() {
   return (
@@ -26,8 +32,10 @@ function App() {
         <Route path="/patient-login" element={<PatientLogin />} />
         <Route path="/doctor-signup" element={<DoctorSignup />} />
         <Route path="/doctor-login" element={<DoctorLogin />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/disease-details" element={<Details />} />
         <Route path="/team" element={<Team />} />
+        <Route path="/admin-entry" element={<AdminEntry />} />
 
         {/* Patient Protected Routes */}
         <Route element={<ProtectedRoute allowedRoles={["patient"]} />}>
@@ -44,6 +52,14 @@ function App() {
         <Route element={<ProtectedRoute allowedRoles={["doctor"]} />}>
           <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
           <Route path="/doctor-edit-profile" element={<EditDoctorProfile />} />
+        </Route>
+
+        {/* Admin Protected Routes */}
+        <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/admin-patients" element={<AdminPatients />} />
+          <Route path="/admin-doctors" element={<AdminDoctors />} />
+          <Route path="/admin-detection-history" element={<AdminDetectionHistory />} />
         </Route>
       </Routes>
     </Router>
