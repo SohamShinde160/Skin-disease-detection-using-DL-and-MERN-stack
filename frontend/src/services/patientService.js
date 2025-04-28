@@ -17,7 +17,11 @@ export const getAllDoctors = async () => {
 
 export const bookAppointment = async (doctorId, date, time) => {
   const response = await axiosInstance.post("/appointments/book", {
-    doctorId, date, time, detectedDisease: "", diseaseImage: ""
+    doctorId,
+    date,
+    time,
+    detectedDisease: "",
+    diseaseImage: "",
   });
   return response.data;
 };
@@ -25,7 +29,7 @@ export const bookAppointment = async (doctorId, date, time) => {
 export const getMyAppointments = async () => {
   const response = await axiosInstance.get("/appointments/my-appointments");
   return Array.isArray(response.data)
-    ? response.data.map(appt => ({
+    ? response.data.map((appt) => ({
         ...appt,
         doctor: appt.doctorId || {},
       }))
@@ -38,10 +42,7 @@ export const getDetectionHistory = async () => {
 };
 
 export const confirmAppointment = async (appointmentId, status) => {
-  const response = await axiosInstance.post("/appointments/confirm", {
-    appointmentId,
-    status,
-  });
+  const response = await axiosInstance.post("/appointments/confirm", { appointmentId, status });
   return response.data;
 };
 

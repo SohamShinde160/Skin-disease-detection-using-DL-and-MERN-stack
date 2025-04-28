@@ -6,10 +6,12 @@ export const getDoctorAppointments = async () => {
 };
 
 export const updateAppointmentStatus = async (appointmentId, status, date, time) => {
-  const response = await axiosInstance.post(
-    "/appointments/confirm",
-    { appointmentId, status, date, time }
-  );
+  const response = await axiosInstance.post("/appointments/confirm", {
+    appointmentId,
+    status,
+    date,
+    time,
+  });
   return response.data;
 };
 
@@ -19,14 +21,10 @@ export const getDoctorProfile = async () => {
 };
 
 export const updateDoctorProfile = async (updatedData) => {
-  const response = await axiosInstance.put(
-    "/doctors/update-profile",
-    updatedData,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }
-  );
+  const response = await axiosInstance.put("/doctors/update-profile", updatedData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
   return response.data;
 };

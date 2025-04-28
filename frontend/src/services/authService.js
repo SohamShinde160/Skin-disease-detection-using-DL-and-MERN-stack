@@ -6,10 +6,7 @@ export const patientSignup = async (userData) => {
 };
 
 export const patientLogin = async (email, password) => {
-  const response = await axiosInstance.post(
-    "/patients/login",
-    { email, password }
-  );
+  const response = await axiosInstance.post("/patients/login", { email, password });
   return response.data;
 };
 
@@ -24,10 +21,7 @@ export const doctorSignup = async (userData) => {
 };
 
 export const doctorLogin = async (email, password) => {
-  const response = await axiosInstance.post(
-    "/doctors/login",
-    { email, password }
-  );
+  const response = await axiosInstance.post("/doctors/login", { email, password });
   return response.data;
 };
 
