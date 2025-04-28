@@ -1,21 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { patientLogin, doctorLogin  } from "../../services/authService"; 
+import { patientLogin, doctorLogin } from "../../services/authService";
 
 const initialState = {
   user: null,
   token: localStorage.getItem("token") || null,
   role: localStorage.getItem("role") || null,
-  isAuthenticated: false,
+  isAuthenticated: !!localStorage.getItem("token"),
   isLoading: false,
   error: null,
 };
 
-// const storedAuth = JSON.parse(localStorage.getItem("auth")) || {
-//   role: null,
-//   user: null,
-// };
-
-export const patientLoginThunk  = createAsyncThunk(
+export const patientLoginThunk = createAsyncThunk(
   "auth/patientLogin",
   async ({ email, password }, thunkAPI) => {
     try {
@@ -39,7 +34,6 @@ export const doctorLoginThunk = createAsyncThunk(
   }
 );
 
-
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -54,6 +48,8 @@ const authSlice = createSlice({
       state.token = null;
       state.role = null;
       state.isAuthenticated = false;
+      state.isLoading = false;
+      state.error = null;
       localStorage.removeItem("token");
       localStorage.removeItem("role");
       localStorage.removeItem("auth");
@@ -66,8 +62,8 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(patientLoginThunk.fulfilled, (state, action) => {
-        console.log("Login success:", action.payload); 
-        state.user = action.payload.patient; 
+        console.log("Patient Login success:", action.payload);
+        state.user = action.payload.patient;
         state.token = action.payload.token;
         state.role = "patient";
         state.isAuthenticated = true;
@@ -76,7 +72,7 @@ const authSlice = createSlice({
         localStorage.setItem("role", "patient");
       })
       .addCase(patientLoginThunk.rejected, (state, action) => {
-        console.error("Login failed:", action.payload);
+        console.error("Patient Login failed:", action.payload);
         state.user = null;
         state.token = null;
         state.role = null;

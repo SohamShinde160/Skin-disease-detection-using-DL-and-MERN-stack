@@ -1,41 +1,37 @@
-import axios from "axios";
-
-const API_URL = process.env.REACT_APP_BACKEND_URL;
+import axiosInstance from "./axiosInstance";
 
 export const patientSignup = async (userData) => {
-  const response = await axios.post(`${API_URL}/patients/register`, userData);
+  const response = await axiosInstance.post("/patients/register", userData);
   return response.data;
 };
 
 export const patientLogin = async (email, password) => {
-  const response = await axios.post(
-    `${API_URL}/patients/login`,
-    { email, password },
-    { withCredentials: true }
+  const response = await axiosInstance.post(
+    "/patients/login",
+    { email, password }
   );
   return response.data;
 };
 
 export const patientLogout = async () => {
-  await axios.post(`${API_URL}/patients/logout`, {}, { withCredentials: true });
+  await axiosInstance.post("/patients/logout");
   return { message: "Patient logged out successfully" };
 };
 
 export const doctorSignup = async (userData) => {
-  const response = await axios.post(`${API_URL}/doctors/signup`, userData);
+  const response = await axiosInstance.post("/doctors/signup", userData);
   return response.data;
 };
 
 export const doctorLogin = async (email, password) => {
-  const response = await axios.post(
-    `${API_URL}/doctors/login`,
-    { email, password },
-    { withCredentials: true }
+  const response = await axiosInstance.post(
+    "/doctors/login",
+    { email, password }
   );
   return response.data;
 };
 
 export const doctorLogout = async () => {
-  await axios.post(`${API_URL}/doctors/logout`, {}, { withCredentials: true });
+  await axiosInstance.post("/doctors/logout");
   return { message: "Doctor logged out successfully" };
 };

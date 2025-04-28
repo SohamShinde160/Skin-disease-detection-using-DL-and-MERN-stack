@@ -12,7 +12,7 @@ connectDB();
 const app = express();
 
 app.use(cors({
-  origin: "https://ai-dermatologist-skincare-soham.vercel.app",
+  origin: "http://localhost:3000",
    credentials: true,
 }));
 app.use(express.json());
