@@ -39,7 +39,7 @@ const AdminPatients = () => {
   }, [patients, searchTerm]);
 
   return (
-    <div className="flex flex-col md:flex-row h-screen bg-gray-100">
+    <div className="flex flex-col font-semibold md:flex-row h-screen bg-gray-100">
       {!isMobile && <AdminSidebar />}
       
       <div className="flex-1 overflow-auto">

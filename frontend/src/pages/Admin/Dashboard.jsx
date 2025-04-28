@@ -27,7 +27,7 @@ const AdminDashboard = () => {
   }, [dispatch]);
 
   return (
-    <div className="flex flex-col md:flex-row h-screen bg-gray-100">
+    <div className="flex flex-col font-semibold md:flex-row h-screen bg-gray-100">
       {!isMobile && <AdminSidebar />}
       
       <div className="flex-1 overflow-auto">
@@ -35,9 +35,9 @@ const AdminDashboard = () => {
           <div className="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
             <h1 className="text-xl md:text-2xl font-bold text-gray-800">Admin Dashboard</h1>
             <div className="flex items-center">
-              <span className="mr-2 text-sm md:text-base text-gray-600">Welcome, Admin Soham</span>
+              <span className="mr-2 text-sm md:text-base font-semibold text-gray-600">Welcome, Admin Soham</span>
               <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold text-sm md:text-base">
-                {user?.email?.charAt(0)?.toUpperCase() || "A"}
+                {user?.email?.charAt(0)?.toUpperCase() || "S"}
               </div>
             </div>
           </div>
@@ -51,7 +51,7 @@ const AdminDashboard = () => {
                 <FiUsers className="text-blue-600 text-lg md:text-xl" />
               </div>
               <div>
-                <h3 className="text-xs md:text-sm text-gray-500">Total Patients</h3>
+                <h3 className="text-xs md:text-sm font-semibold text-gray-500">Total Patients</h3>
                 <p className="text-lg md:text-2xl font-bold">{loading ? "..." : patients.length}</p>
               </div>
             </div>
@@ -61,7 +61,7 @@ const AdminDashboard = () => {
                 <FiUserPlus className="text-green-600 text-lg md:text-xl" />
               </div>
               <div>
-                <h3 className="text-xs md:text-sm text-gray-500">Total Doctors</h3>
+                <h3 className="text-xs md:text-sm font-semibold text-gray-500">Total Doctors</h3>
                 <p className="text-lg md:text-2xl font-bold">{loading ? "..." : doctors.length}</p>
               </div>
             </div>
@@ -71,7 +71,7 @@ const AdminDashboard = () => {
                 <FiImage className="text-purple-600 text-lg md:text-xl" />
               </div>
               <div>
-                <h3 className="text-xs md:text-sm text-gray-500">Total Detections</h3>
+                <h3 className="text-xs md:text-sm font-semibold text-gray-500">Total Detections</h3>
                 <p className="text-lg md:text-2xl font-bold">{loading ? "..." : detectionHistory.length}</p>
               </div>
             </div>
