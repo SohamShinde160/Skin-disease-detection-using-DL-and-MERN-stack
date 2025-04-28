@@ -445,7 +445,7 @@ const Home = () => {
           {/* Bottom Line */}
           <div className="border-t border-gray-700 mt-10 pt-6 text-center">
             <p className="text-sm md:text-lg font-semibold text-gray-400">
-              © 2025 AI-Dermatologist <br></br> Built with ❤️ by Soham S Shinde 🗿
+              © 2025 AI-Dermatologist <br></br> Developed by Soham S Shinde 🗿
             </p>
           </div>
         </div>
