@@ -15,7 +15,7 @@ const AdminDashboard = () => {
       setIsMobile(window.innerWidth < 768);
     };
 
-    handleResize(); // Check initial size
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -44,7 +44,6 @@ const AdminDashboard = () => {
         </header>
 
         <main className="p-3 md:p-6">
-          {/* Stats Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
             <div className="bg-white rounded-lg shadow-md p-4 md:p-6 flex items-center">
               <div className="rounded-full bg-blue-100 p-2 md:p-3 mr-3 md:mr-4">
@@ -77,7 +76,6 @@ const AdminDashboard = () => {
             </div>
           </div>
 
-          {/* Recent Patients Table */}
           <div className="bg-white rounded-lg shadow-md p-4 md:p-6 mb-4 md:mb-6">
             <h2 className="text-lg md:text-xl font-bold mb-3 md:mb-4">Recent Patients</h2>
             {loading ? (
@@ -114,7 +112,6 @@ const AdminDashboard = () => {
             )}
           </div>
 
-          {/* Recent Doctors Table */}
           <div className="bg-white rounded-lg mb-36 shadow-md p-4 md:p-6">
             <h2 className="text-lg md:text-xl font-bold mb-3 md:mb-4">Recent Doctors</h2>
             {loading ? (

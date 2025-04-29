@@ -17,7 +17,7 @@ const AdminDetectionHistory = () => {
       setIsMobile(window.innerWidth < 768);
     };
 
-    handleResize(); // Check initial size
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -48,7 +48,7 @@ const AdminDetectionHistory = () => {
   };
 
   return (
-    <div className="flex flex-col font-semibold md:flex-row h-screen bg-gray-100">
+    <div className="flex flex-col font-semibold md:flex-row h-screen  bg-gray-100">
       {!isMobile && <AdminSidebar />}
       
       <div className="flex-1 overflow-auto">
@@ -56,7 +56,7 @@ const AdminDetectionHistory = () => {
           <h1 className="text-xl md:text-2xl font-bold text-gray-800">Detection History</h1>
         </header>
 
-        <main className="p-4 md:p-6">
+        <main className="p-4 mb-24 md:p-6">
           <div className="bg-white rounded-lg shadow-md p-4 md:p-6">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0 mb-4 md:mb-6">
               <h2 className="text-lg md:text-xl font-bold">All Skin Disease Detections</h2>
@@ -151,7 +151,6 @@ const AdminDetectionHistory = () => {
           </div>
         </main>
 
-        {/* Image Modal */}
         {selectedImage && (
           <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50" onClick={closeImageModal}>
             <div className="max-w-3xl w-[90%] max-h-[90vh] p-2 bg-white rounded-lg" onClick={(e) => e.stopPropagation()}>

@@ -54,7 +54,6 @@ const Home = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
-  // Memory Map Game logic
   const cardImages = ["🌎", "🗺️", "🏔️", "🏜️", "🏝️", "🏕️"];
 
   useEffect(() => {
@@ -98,7 +97,6 @@ const Home = () => {
         const newMatchedCards = [...matchedCards, firstCard.id, secondCard.id];
         setMatchedCards(newMatchedCards);
 
-        // Check if all cards are matched
         if (newMatchedCards.length === cards.length) {
           setGameWon(true);
         }
@@ -122,7 +120,6 @@ const Home = () => {
 
   return (
     <div className="font-semibold relative">
-      {/* Navigation */}
       <nav
         className={`border border-gray-200 bg-white z-50 rounded-[50px] shadow-lg py-3 px-4 md:px-8 ${
           window.innerWidth < 768
@@ -138,7 +135,6 @@ const Home = () => {
               className="h-12 scale-125 pl-3 md:h-16 cursor-pointer"
             />
           </div>
-          {/* Mobile menu button */}
           <div className="md:hidden">
             <button
               onClick={toggleMobileMenu}
@@ -152,7 +148,6 @@ const Home = () => {
             </button>
           </div>
 
-          {/* Desktop Navigation */}
           <ul className="hidden md:flex space-x-4 lg:space-x-8 font-semibold text-black text-[15px] lg:text-[17px]">
             <li
               onClick={() => navigate("/")}
@@ -195,7 +190,6 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
         {mobileMenuOpen && (
           <div className="md:hidden mt-4 pb-4">
             <ul className="flex flex-col space-y-4">
@@ -256,7 +250,6 @@ const Home = () => {
         <FunFacts />
       </div>
 
-      {/* Get Started Section */}
       <div
         className="flex flex-col get-started-section justify-center items-center min-h-[80vh] bg-gradient-to-r from-blue-50 to-purple-50 pt-16 md:pt-0"
         id="get-started-section"
@@ -319,7 +312,6 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Features Section */}
       <section className="py-8 md:py-12 px-4 md:px-6 bg-white text-center">
         <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 md:mb-8">
           Why is <span className="text-blue-600">AI Dermatologist</span> worth
@@ -397,7 +389,6 @@ const Home = () => {
               </ul>
             </div>
 
-            {/* Follow Me */}
             <div className="text-center md:text-right">
               <h3 className="text-2xl font-bold mb-4">Connect with Developer</h3>
               <div className="flex justify-center md:justify-end space-x-6">
@@ -435,7 +426,6 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Bottom Line */}
           <div className="border-t border-gray-700 mt-10 pt-6 text-center">
             <p className="text-sm md:text-lg font-semibold text-gray-400">
               © 2025 AI-Dermatologist <br></br> Developed by Soham S Shinde 🗿

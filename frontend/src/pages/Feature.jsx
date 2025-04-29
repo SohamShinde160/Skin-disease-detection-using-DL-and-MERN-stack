@@ -25,7 +25,6 @@ const Features = () => {
         </h3>
         
         <div className="flex flex-row justify-center items-center gap-6 md:gap-12">
-          {/* Step 1 */}
           <div className="flex flex-col items-center">
             <div className="w-16 h-16 md:w-24 md:h-24 flex justify-center items-center bg-white border-2 border-blue-500 rounded-full shadow-lg md:shadow-xl hover:shadow-xl md:hover:shadow-2xl transition-shadow">
               <FaEye className="text-blue-600 text-3xl md:text-5xl" />
@@ -33,10 +32,8 @@ const Features = () => {
             <h3 className="text-sm md:text-xl font-bold text-gray-800 mt-2 md:mt-4">Upload Image</h3>
           </div>
 
-          {/* Connector 1 - hidden on mobile */}
           <div className="block w-24 border-dashed mb-10 border-b-2 border-gray-500"></div>
 
-          {/* Step 2 */}
           <div className="flex flex-col items-center md:ml-10">
             <div className="w-16 h-16 md:w-24 md:h-24 flex justify-center items-center bg-white border-2 border-blue-500 rounded-full shadow-lg md:shadow-xl hover:shadow-xl md:hover:shadow-2xl transition-shadow">
               <FaNotesMedical className="text-blue-600 text-3xl md:text-5xl" />
@@ -44,10 +41,8 @@ const Features = () => {
             <h3 className="text-sm md:text-xl font-bold text-gray-800 mt-2 md:mt-4">Disease Detection</h3>
           </div>
 
-          {/* Connector 2 - hidden on mobile */}
           <div className="block w-24 border-dashed mb-10 border-b-2 border-gray-500"></div>
 
-          {/* Step 3 */}
           <div className="flex flex-col items-center">
             <div className="w-16 h-16 md:w-24 md:h-24 flex justify-center items-center bg-white border-2 border-blue-500 rounded-full shadow-lg md:shadow-xl hover:shadow-xl md:hover:shadow-2xl transition-shadow">
               <FaStethoscope className="text-blue-600 text-3xl md:text-5xl" />

@@ -44,7 +44,7 @@ const EditProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await dispatch(updateProfile(formData)).unwrap(); // unwrap to catch success/failure
+      await dispatch(updateProfile(formData)).unwrap();
       toast.success("Profile updated successfully!");
     } catch (error) {
       toast.error("Failed to update profile!");
@@ -62,7 +62,6 @@ const EditProfile = () => {
           onSubmit={handleSubmit}
           className="bg-white w-full max-w-6xl mx-auto mt-6 p-4 md:p-6 shadow-md rounded-md flex flex-col lg:flex-row items-center justify-between gap-8"
         >
-          {/* Form Section */}
           <div className="bg-gray-50 w-full max-w-md shadow-xl p-6 rounded-md">
             <h2 className="text-2xl font-bold mb-4 text-center lg:text-left">Edit Profile</h2>
 
@@ -117,7 +116,6 @@ const EditProfile = () => {
             </button>
           </div>
 
-          {/* Image Section */}
           <div className="w-full max-w-xs lg:max-w-sm">
             <img
               src="img/ai-bot.png"

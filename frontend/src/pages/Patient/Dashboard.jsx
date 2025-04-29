@@ -63,7 +63,6 @@ const Dashboard = () => {
           <Navbar />
 
           <div className="flex flex-col lg:flex-row gap-10">
-            {/* Upload Section */}
             <div className="bg-white shadow-xl mt-4 rounded-2xl p-6 w-full lg:max-w-3xl">
               <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
                 Upload Skin Image for Disease Detection
@@ -126,8 +125,7 @@ const Dashboard = () => {
               )}
             </div>
 
-            {/* Instructions Section */}
-            <div className="mt-4 lg:mt-6 lg:border-l-2 border-gray-400 px-4 lg:px-10">
+            <div className="mt-4 lg:mt-6 lg:border-l-2 mb-32 border-gray-400 px-4 lg:px-10">
               <h2 className="text-xl font-bold underline mb-4">Instructions for uploading the Image</h2>
               <ul className="list-disc text-sm sm:text-base space-y-2 pl-5">
                 <li>Ensure the image is clear and well-lit.</li>

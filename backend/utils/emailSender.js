@@ -15,7 +15,7 @@ const sendEmail = async (to, subject, message, htmlContent) => {
       to,
       subject,
       text: message,
-      html: htmlContent // newly added
+      html: htmlContent
     });
 
     console.log(`Email sent to ${to}`);

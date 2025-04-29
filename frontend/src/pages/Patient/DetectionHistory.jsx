@@ -25,7 +25,7 @@ const DetectionHistory = () => {
         ) : detectionHistory.length === 0 ? (
           <p>No detection history found.</p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid mb-24 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {detectionHistory.map((record) => (
               <div key={record._id} className="border p-4 rounded-md shadow-md bg-white hover:shadow-lg transition-shadow">
                 <img src={record.imageUrl} alt="Uploaded Skin" className="w-full h-48 object-cover rounded-md" />

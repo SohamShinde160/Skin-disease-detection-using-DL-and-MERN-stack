@@ -21,16 +21,15 @@ const uploadDetectionImage = async (req, res) => {
     let detectedDisease = "Unknown";
     let confidence = "0%";
 
-    let compressedPath = null; // define compressedPath here to use later safely
+    let compressedPath = null;
 
     try {
-      // 🛠 Compress the uploaded image first
       const sharp = require('sharp');
       compressedPath = `uploads/compressed_${Date.now()}.jpg`;
 
       await sharp(req.file.path)
-        .resize({ width: 300, height: 300 }) // Resize image
-        .jpeg({ quality: 70 })               // Compress image quality
+        .resize({ width: 300, height: 300 })
+        .jpeg({ quality: 70 })
         .toFile(compressedPath);
 
       const formData = new FormData();
@@ -41,7 +40,7 @@ const uploadDetectionImage = async (req, res) => {
         headers: {
           ...formData.getHeaders()
         },
-        timeout: 60000 // ⏳ Increase timeout to 60 seconds
+        timeout: 60000
       });
 
       console.log("ML Model Response:", mlResponse.data);
@@ -60,7 +59,6 @@ const uploadDetectionImage = async (req, res) => {
       }
       console.warn("⚠️ Using default disease value due to ML model error");
     } finally {
-      // SAFELY delete compressed temp file (but not the uploaded file)
       if (compressedPath) {
         fs.unlink(compressedPath, (err) => {
           if (err) console.error("Failed to delete compressed image:", err.message);

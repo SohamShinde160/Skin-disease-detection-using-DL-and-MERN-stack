@@ -55,7 +55,6 @@ const MeetOurTeam = () => {
               className="h-12 scale-125 pl-3 md:h-16 cursor-pointer"
             />
           </div>
-          {/* Mobile menu button */}
           <div className="md:hidden">
             <button
               onClick={toggleMobileMenu}
@@ -69,7 +68,6 @@ const MeetOurTeam = () => {
             </button>
           </div>
 
-          {/* Desktop Navigation */}
           <ul className="hidden md:flex space-x-4 lg:space-x-8 font-semibold text-black text-[15px] lg:text-[17px]">
             <li
               onClick={() => navigate("/")}
@@ -112,7 +110,6 @@ const MeetOurTeam = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
         {mobileMenuOpen && (
           <div className="md:hidden mt-4 pb-4">
             <ul className="flex flex-col space-y-4">
@@ -168,7 +165,6 @@ const MeetOurTeam = () => {
         )}
       </nav>
 
-      {/* Team Section */}
       <section className="min-h-screen bg-gray-100 py-8 md:py-12 relative">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-4 mt-20 md:mb-6">
@@ -190,7 +186,6 @@ const MeetOurTeam = () => {
                 <h3 className="text-lg md:text-xl font-bold text-gray-700">{member.name}</h3>
                 <p className="text-sm md:text-base text-gray-500">{member.role}</p>
 
-                {/* LinkedIn Link */}
                 {member.linkedin && (
                   <a
                     href={member.linkedin}

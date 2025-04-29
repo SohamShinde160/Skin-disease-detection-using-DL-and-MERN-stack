@@ -11,15 +11,12 @@ const generateToken = (id) => {
   });
 };
 
-// Admin login
 const adminLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
     
-    // Check if admin exists
     let admin = await Admin.findOne({ email });
     
-    // If admin doesn't exist with the predefined credentials, create one
     if (!admin && email === "rohitadmin45@ymail.com") {
       admin = await Admin.create({
         email: "rohitadmin45@ymail.com",
@@ -48,12 +45,10 @@ const adminLogin = async (req, res) => {
   }
 };
 
-// Admin logout
 const adminLogout = (req, res) => {
   res.clearCookie("adminToken").status(200).json({ message: "Admin logged out" });
 };
 
-// Get all patients
 const getAllPatients = async (req, res) => {
   try {
     const patients = await Patient.find().select("-password");
@@ -63,7 +58,6 @@ const getAllPatients = async (req, res) => {
   }
 };
 
-// Get all doctors
 const getAllDoctors = async (req, res) => {
   try {
     const doctors = await Doctor.find().select("-password");
@@ -73,7 +67,6 @@ const getAllDoctors = async (req, res) => {
   }
 };
 
-// Get all detection history
 const getAllDetectionHistory = async (req, res) => {
   try {
     const detectionHistory = await DetectionHistory.find().populate("patientId", "name email");

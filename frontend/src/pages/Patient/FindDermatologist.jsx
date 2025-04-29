@@ -10,7 +10,7 @@ const FindDermatologist = () => {
   const [lon, setLon] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const apiKey = "AlzaSyaTX4OaNpip83xbj4Y71eABx3XNa7ah4Lc";
+  const apiKey = "AlzaSyJ5f7_DgZSWJ-b3JdXTQTERmdMm5HRI8EF";
 
   useEffect(() => {
     if (lat && lon) {
@@ -159,7 +159,7 @@ const FindDermatologist = () => {
             </h3>
 
             {doctors.length > 0 ? (
-              <ul className="mt-4 space-y-4">
+              <ul className="mt-4  space-y-4">
                 {doctors.map((doctor, index) => (
                   <li
                     key={index}

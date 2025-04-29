@@ -6,7 +6,7 @@ import { doctorLoginThunk } from "../../redux/slices/authSlice";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FiMenu, FiX } from "react-icons/fi";
-import { FiEye, FiEyeOff } from "react-icons/fi"; // 👈 Added eye icons
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 const DoctorLogin = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const DoctorLogin = () => {
     password: "",
   });
 
-  const [showPassword, setShowPassword] = useState(false); // 👈 Added for password visibility
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -68,7 +68,6 @@ const DoctorLogin = () => {
         pauseOnHover
       />
 
-      {/* Navigation */}
       <nav className={`border border-gray-200 bg-white z-50 rounded-[50px] shadow-lg py-3 px-4 md:px-8
         ${window.innerWidth < 768 ? 
           'fixed top-4 left-1/2 transform -translate-x-1/2 w-[90%]' : 
@@ -82,7 +81,6 @@ const DoctorLogin = () => {
               className="h-12 scale-125 pl-3 md:h-16 cursor-pointer"
             />
           </div>         
-          {/* Mobile menu button */}
           <div className="md:hidden">
             <button
               onClick={toggleMobileMenu}
@@ -96,7 +94,6 @@ const DoctorLogin = () => {
             </button>
           </div>
 
-          {/* Desktop Navigation */}
           <ul className="hidden md:flex space-x-4 lg:space-x-8 font-semibold text-black text-[15px] lg:text-[17px]">
             <li
               onClick={() => navigate("/")}
@@ -139,7 +136,6 @@ const DoctorLogin = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
         {mobileMenuOpen && (
           <div className="md:hidden mt-4 pb-4">
             <ul className="flex flex-col space-y-4">
@@ -195,7 +191,6 @@ const DoctorLogin = () => {
         )}
       </nav>
 
-      {/* Login Content */}
       <div className="flex flex-col lg:flex-row justify-center items-center gap-6 lg:gap-12 pt-20 md:pt-24 px-4 min-h-[100vh] bg-gradient-to-r from-blue-50 to-purple-50">
         <form onSubmit={handleSubmit} className="bg-white p-4 sm:p-6 shadow-xl sm:shadow-2xl rounded-xl w-full max-w-md relative">
           <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">Doctor Login</h2>

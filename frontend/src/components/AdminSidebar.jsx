@@ -15,7 +15,7 @@ const AdminSidebar = () => {
       setIsMobile(window.innerWidth < 768);
     };
 
-    handleResize(); // Set initial value
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -30,7 +30,6 @@ const AdminSidebar = () => {
     }
   };
 
-  // Mobile version (bottom navigation)
   if (isMobile) {
     return (
       <div className="fixed bottom-0 left-0 right-0 bg-gray-100 text-gray-800 border-t-2 border-gray-200 z-50">
@@ -67,7 +66,6 @@ const AdminSidebar = () => {
     );
   }
 
-  // Desktop version (left sidebar)
   return (
     <div className="bg-gray-100 text-gray-800 w-64 min-h-screen p-4 border-r-2 border-gray-200">
       <div className="flex items-center justify-center mb-8 pt-4">
@@ -114,7 +112,6 @@ const AdminSidebar = () => {
   );
 };
 
-// Reusable component for desktop nav items
 const NavItem = ({ href, icon, label }) => (
   <li>
     <a
@@ -127,7 +124,6 @@ const NavItem = ({ href, icon, label }) => (
   </li>
 );
 
-// Reusable component for mobile nav items
 const MobileNavItem = ({ href, icon, label }) => (
   <a
     href={href}

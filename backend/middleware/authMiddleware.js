@@ -1,4 +1,3 @@
-// authMiddleware.js
 const jwt = require("jsonwebtoken");
 const Patient = require("../models/patientModel");
 const Doctor = require("../models/doctorModel");

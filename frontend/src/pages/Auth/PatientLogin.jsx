@@ -69,7 +69,6 @@ const PatientLogin = () => {
         pauseOnHover
       />
 
-      {/* Navigation */}
       <nav className={`border border-gray-200 bg-white z-50 rounded-[50px] shadow-lg py-3 px-4 md:px-8
         ${window.innerWidth < 768 ?
           'fixed top-4 left-1/2 transform -translate-x-1/2 w-[90%]' :
@@ -83,7 +82,6 @@ const PatientLogin = () => {
               className="h-12 scale-125 pl-3 md:h-16 cursor-pointer"
             />
           </div>
-          {/* Mobile menu button */}
           <div className="md:hidden">
             <button
               onClick={toggleMobileMenu}
@@ -97,7 +95,6 @@ const PatientLogin = () => {
             </button>
           </div>
 
-          {/* Desktop Navigation */}
           <ul className="hidden md:flex space-x-4 lg:space-x-8 font-semibold text-black text-[15px] lg:text-[17px]">
             <li onClick={() => navigate("/")} className="cursor-pointer hover:text-blue-500">
               Home
@@ -131,7 +128,6 @@ const PatientLogin = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
         {mobileMenuOpen && (
           <div className="md:hidden mt-4 pb-4">
             <ul className="flex flex-col space-y-4">
@@ -187,7 +183,6 @@ const PatientLogin = () => {
         )}
       </nav>
 
-      {/* Login Content */}
       <div className="flex flex-col lg:flex-row justify-center items-center gap-6 lg:gap-12 pt-20 md:pt-24 px-4 min-h-[100vh] bg-gradient-to-r from-blue-50 to-purple-50">
         <form onSubmit={handleSubmit} className="bg-white p-6 sm:p-8 shadow-xl sm:shadow-2xl rounded-xl w-full max-w-md relative">
           <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-800">Patient Login</h2>

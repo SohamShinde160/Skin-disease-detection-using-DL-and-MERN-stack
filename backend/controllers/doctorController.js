@@ -90,12 +90,11 @@ const updateDoctorProfile = async (req, res) => {
       return res.status(404).json({ message: "Doctor not found" });
     }
 
-    // Update only allowed fields
     if (req.body.location) doctor.location = req.body.location;
-    if (req.body.age) doctor.age = Number(req.body.age); // Convert string to number
+    if (req.body.age) doctor.age = Number(req.body.age);
     if (req.body.gender) doctor.gender = req.body.gender;
     if (req.body.achievements) doctor.achievements = req.body.achievements;
-    if (req.body.experience) doctor.experience = Number(req.body.experience); // Convert to number
+    if (req.body.experience) doctor.experience = Number(req.body.experience);
 
     if (req.file) {
       const cloudinaryResponse = await cloudinary.uploader.upload(req.file.path);

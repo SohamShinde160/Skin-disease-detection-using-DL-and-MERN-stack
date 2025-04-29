@@ -58,7 +58,6 @@ const DoctorSignup = () => {
         pauseOnHover
       />
 
-      {/* Navigation */}
       <nav className={`border border-gray-200 bg-white  z-50 rounded-[50px] shadow-lg py-3 px-4 md:px-8
         ${window.innerWidth < 768 ? 
           'fixed top-4 left-1/2 transform -translate-x-1/2 w-[90%]' : 
@@ -72,7 +71,6 @@ const DoctorSignup = () => {
               className="h-12 scale-125 pl-3 md:h-16 cursor-pointer"
             />
           </div>         
-           {/* Mobile menu button */}
           <div className="md:hidden">
             <button
               onClick={toggleMobileMenu}
@@ -86,7 +84,6 @@ const DoctorSignup = () => {
             </button>
           </div>
 
-          {/* Desktop Navigation */}
           <ul className="hidden md:flex space-x-4 lg:space-x-8 font-semibold text-black text-[15px] lg:text-[17px]">
             <li
               onClick={() => navigate("/")}
@@ -129,7 +126,6 @@ const DoctorSignup = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
         {mobileMenuOpen && (
           <div className="md:hidden mt-4 pb-4">
             <ul className="flex flex-col space-y-4">
@@ -185,7 +181,6 @@ const DoctorSignup = () => {
         )}
       </nav>
 
-      {/* Signup Content */}
       <div className="flex flex-col lg:flex-row justify-center items-center gap-6 lg:gap-12 pt-20 md:pt-28 px-4 min-h-[100vh] bg-gray-100">
         <form onSubmit={handleSubmit} className="bg-white p-4 sm:p-6 shadow-md sm:shadow-lg rounded-md w-full max-w-md">
           <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Doctor Signup</h2>

@@ -24,8 +24,7 @@ const PopularTreatments = () => {
               alt="Logo"
               className="h-12 scale-125 pl-3 md:h-16 cursor-pointer"
             />
-          </div>         
-           {/* Mobile menu button */}
+          </div>
           <div className="md:hidden">
             <button
               onClick={toggleMobileMenu}
@@ -39,7 +38,6 @@ const PopularTreatments = () => {
             </button>
           </div>
 
-          {/* Desktop Navigation */}
           <ul className="hidden md:flex space-x-4 lg:space-x-8 font-semibold text-black text-[15px] lg:text-[17px]">
             <li
               onClick={() => navigate("/")}
@@ -82,7 +80,6 @@ const PopularTreatments = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
         {mobileMenuOpen && (
           <div className="md:hidden mt-4 pb-4">
             <ul className="flex flex-col space-y-4">
@@ -137,7 +134,6 @@ const PopularTreatments = () => {
           </div>
         )}
       </nav>
-     {/* Content Section */}
      <section className="bg-gradient-to-r from-blue-50 to-purple-50 py-12 md:py-16 px-4 md:px-6 relative ">
         <div className="max-w-6xl mt-16 mx-auto text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">

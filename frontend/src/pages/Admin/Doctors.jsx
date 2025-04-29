@@ -16,7 +16,7 @@ const AdminDoctors = () => {
       setIsMobile(window.innerWidth < 768);
     };
 
-    handleResize(); // Check initial size
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);

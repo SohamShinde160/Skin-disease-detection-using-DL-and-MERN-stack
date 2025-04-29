@@ -46,7 +46,6 @@ const bookAppointment = async (req, res) => {
       status: "Pending",
     });
 
-    // Email to Doctor
     const doctorSubject = "New Appointment Request";
     const doctorText = `You have received a new appointment request from ${patient.name} for ${date} at ${time}.`;
     const doctorHTML = generateEmailHTML(
@@ -58,7 +57,6 @@ const bookAppointment = async (req, res) => {
     );
     await sendEmail(doctor.email, doctorSubject, doctorText, doctorHTML);
 
-    // Email to Patient
     const patientSubject = "Appointment Booked Successfully";
     const patientText = `Your appointment with Dr. ${doctor.name} has been booked for ${date} at ${time}. Status: Pending.`;
     const patientHTML = generateEmailHTML(

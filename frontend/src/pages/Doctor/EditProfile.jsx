@@ -57,7 +57,7 @@ const EditProfile = () => {
     }
   
     await dispatch(updateDoctorProfileData(updatedData));
-    dispatch(fetchDoctorProfile()); // ✅ After update, refetch doctor profile again
+    dispatch(fetchDoctorProfile());
     toast.success("Profile Updated Successfully!");
   };
   
@@ -88,7 +88,6 @@ const EditProfile = () => {
           onSubmit={handleSubmit}
           className="bg-white p-4 md:p-6 shadow-md rounded-md w-full max-w-6xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-8"
         >
-          {/* Form Section */}
           <div className="w-full max-w-md">
             <label className="block mb-2">Profile Picture:</label>
             <input
@@ -165,7 +164,6 @@ const EditProfile = () => {
             </button>
           </div>
 
-          {/* Image Section */}
           <div className="w-full max-w-sm">
             <img
               src="img/doctos.png"

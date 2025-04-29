@@ -24,7 +24,6 @@ const Sidebar = () => {
         transition-all duration-300
       `}
     >
-      {/* Greeting + Dark Mode Toggle (Only on Desktop) */}
       <div className="hidden md:flex justify-between items-center w-full mb-6">
         {role && user?.name && (
           <span className="flex items-center p-2 rounded-lg bg-gray-700 px-3 text-white gap-2 text-md font-semibold">
@@ -40,7 +39,6 @@ const Sidebar = () => {
         </button>
       </div>
 
-      {/* Navigation Links */}
       <ul className="flex md:flex-col justify-around w-full md:space-y-4">
         {role === "patient" && (
           <>

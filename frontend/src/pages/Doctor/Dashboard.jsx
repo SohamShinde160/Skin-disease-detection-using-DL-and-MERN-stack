@@ -57,7 +57,6 @@ const Dashboard = () => {
       <div className="flex-1 p-4 pb-28 md:pb-6">
         <Navbar />
 
-        {/* Heading and Search */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 mt-5 gap-4">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-800 text-center md:text-left">
             Appointments
@@ -73,7 +72,6 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Appointments */}
         {loading ? (
           <Loader />
         ) : filteredAppointments.length === 0 ? (
@@ -201,7 +199,6 @@ const Dashboard = () => {
           </div>
         )}
 
-        {/* Image Zoom Modal */}
         {zoomedImage && (
           <div
             className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
