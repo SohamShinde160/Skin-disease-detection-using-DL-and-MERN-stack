@@ -7,7 +7,7 @@ import { FaLinkedin } from "react-icons/fa";
 
 const teamMembers = [
   {
-    name: "Soham Shinde",
+    name: "Soham S Shinde",
     role: "Full Stack Developer",
     image: "/img/soham.jpg",
     linkedin: "https://www.linkedin.com/in/soham-s-shinde-16012004ss/",
