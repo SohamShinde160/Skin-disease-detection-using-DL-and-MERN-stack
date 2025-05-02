@@ -37,6 +37,8 @@ This project is a comprehensive MERN (MongoDB, Express, React, Node.js) applicat
    CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
    CLOUDINARY_API_KEY=your_cloudinary_api_key
    CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+   EMAIL_USER=your_email_id
+   EMAIL_PASSWORD=your_app_password
    ```
 
 4. Start the backend server:
