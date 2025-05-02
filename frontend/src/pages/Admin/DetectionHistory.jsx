@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AdminSidebar from "../../components/AdminSidebar";
-import { fetchAllDetectionHistory } from "../../redux/slices/adminSlice";
-import { FiSearch, FiEye } from "react-icons/fi";
+import { fetchAllDetectionHistory, deleteDetectionHistoryThunk } from "../../redux/slices/adminSlice";
+import { FiSearch, FiEye, FiTrash2 } from "react-icons/fi";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AdminDetectionHistory = () => {
   const dispatch = useDispatch();
@@ -11,6 +13,7 @@ const AdminDetectionHistory = () => {
   const [filteredHistory, setFilteredHistory] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [deleteConfirmation, setDeleteConfirmation] = useState(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -47,10 +50,31 @@ const AdminDetectionHistory = () => {
     setSelectedImage(null);
   };
 
+  const handleDeleteClick = (record) => {
+    setDeleteConfirmation(record);
+  };
+
+  const confirmDelete = async () => {
+    if (deleteConfirmation) {
+      try {
+        await dispatch(deleteDetectionHistoryThunk(deleteConfirmation._id)).unwrap();
+        toast.success("Detection record deleted successfully");
+        setDeleteConfirmation(null);
+      } catch (error) {
+        toast.error(`Failed to delete record: ${error}`);
+      }
+    }
+  };
+
+  const cancelDelete = () => {
+    setDeleteConfirmation(null);
+  };
+
   return (
     <div className="flex flex-col font-semibold md:flex-row h-screen  bg-gray-100">
+      <ToastContainer position="top-right" autoClose={3000} />
       {!isMobile && <AdminSidebar />}
-      
+
       <div className="flex-1 overflow-auto">
         <header className="bg-white shadow-sm p-4">
           <h1 className="text-xl md:text-2xl font-bold text-gray-800">Detection History</h1>
@@ -135,12 +159,22 @@ const AdminDetectionHistory = () => {
                             </td>
 
                         <td className="px-3 md:px-6 py-4 whitespace-nowrap">
-                          <button
-                            onClick={() => openImageModal(record.imageUrl)}
-                            className="text-blue-600 hover:text-blue-900 text-sm md:text-base"
-                          >
-                            {isMobile ? "View" : "View Image"}
-                          </button>
+                          <div className="flex flex-col md:flex-row gap-2">
+                            <button
+                              onClick={() => openImageModal(record.imageUrl)}
+                              className="text-blue-600 hover:text-blue-900 text-sm md:text-base flex items-center"
+                            >
+                              <FiEye className="mr-1" />
+                              {isMobile ? "View" : "View Image"}
+                            </button>
+                            <button
+                              onClick={() => handleDeleteClick(record)}
+                              className="text-red-600 hover:text-red-900 text-sm md:text-base flex items-center"
+                            >
+                              <FiTrash2 className="mr-1" />
+                              Delete
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))}
@@ -169,6 +203,33 @@ const AdminDetectionHistory = () => {
       </div>
 
       {isMobile && <AdminSidebar />}
+
+      {/* Delete Confirmation Modal */}
+      {deleteConfirmation && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full">
+            <h3 className="text-xl font-bold mb-4">Confirm Delete</h3>
+            <p className="mb-6">
+              Are you sure you want to permanently delete this detection record?
+              This action cannot be undone.
+            </p>
+            <div className="flex justify-end space-x-4">
+              <button
+                onClick={cancelDelete}
+                className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmDelete}
+                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

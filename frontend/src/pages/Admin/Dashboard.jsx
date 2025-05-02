@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AdminSidebar from "../../components/AdminSidebar";
-import { fetchAllPatients, fetchAllDoctors, fetchAllDetectionHistory } from "../../redux/slices/adminSlice";
-import { FiUsers, FiUserPlus, FiImage } from "react-icons/fi";
+import { fetchAllPatients, fetchAllDoctors, fetchAllDetectionHistory, fetchAllAppointments } from "../../redux/slices/adminSlice";
+import { FiUsers, FiUserPlus, FiImage, FiCalendar } from "react-icons/fi";
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
-  const { patients, doctors, detectionHistory, loading } = useSelector((state) => state.admin);
+  const { patients, doctors, detectionHistory, appointments, loading } = useSelector((state) => state.admin);
   const { user } = useSelector((state) => state.auth);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -24,12 +24,13 @@ const AdminDashboard = () => {
     dispatch(fetchAllPatients());
     dispatch(fetchAllDoctors());
     dispatch(fetchAllDetectionHistory());
+    dispatch(fetchAllAppointments());
   }, [dispatch]);
 
   return (
     <div className="flex flex-col font-semibold md:flex-row h-screen bg-gray-100">
       {!isMobile && <AdminSidebar />}
-      
+
       <div className="flex-1 overflow-auto">
         <header className="bg-white shadow-sm p-4">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
@@ -44,7 +45,7 @@ const AdminDashboard = () => {
         </header>
 
         <main className="p-3 md:p-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6 md:mb-8">
             <div className="bg-white rounded-lg shadow-md p-4 md:p-6 flex items-center">
               <div className="rounded-full bg-blue-100 p-2 md:p-3 mr-3 md:mr-4">
                 <FiUsers className="text-blue-600 text-lg md:text-xl" />
@@ -54,7 +55,7 @@ const AdminDashboard = () => {
                 <p className="text-lg md:text-2xl font-bold">{loading ? "..." : patients.length}</p>
               </div>
             </div>
-            
+
             <div className="bg-white rounded-lg shadow-md p-4 md:p-6 flex items-center">
               <div className="rounded-full bg-green-100 p-2 md:p-3 mr-3 md:mr-4">
                 <FiUserPlus className="text-green-600 text-lg md:text-xl" />
@@ -64,7 +65,7 @@ const AdminDashboard = () => {
                 <p className="text-lg md:text-2xl font-bold">{loading ? "..." : doctors.length}</p>
               </div>
             </div>
-            
+
             <div className="bg-white rounded-lg shadow-md p-4 md:p-6 flex items-center">
               <div className="rounded-full bg-purple-100 p-2 md:p-3 mr-3 md:mr-4">
                 <FiImage className="text-purple-600 text-lg md:text-xl" />
@@ -72,6 +73,16 @@ const AdminDashboard = () => {
               <div>
                 <h3 className="text-xs md:text-sm font-semibold text-gray-500">Total Detections</h3>
                 <p className="text-lg md:text-2xl font-bold">{loading ? "..." : detectionHistory.length}</p>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg shadow-md p-4 md:p-6 flex items-center">
+              <div className="rounded-full bg-orange-100 p-2 md:p-3 mr-3 md:mr-4">
+                <FiCalendar className="text-orange-600 text-lg md:text-xl" />
+              </div>
+              <div>
+                <h3 className="text-xs md:text-sm font-semibold text-gray-500">Total Appointments</h3>
+                <p className="text-lg md:text-2xl font-bold">{loading ? "..." : appointments?.length || 0}</p>
               </div>
             </div>
           </div>
@@ -112,7 +123,7 @@ const AdminDashboard = () => {
             )}
           </div>
 
-          <div className="bg-white rounded-lg mb-36 shadow-md p-4 md:p-6">
+          <div className="bg-white rounded-lg shadow-md p-4 md:p-6 mb-4 md:mb-6">
             <h2 className="text-lg md:text-xl font-bold mb-3 md:mb-4">Recent Doctors</h2>
             {loading ? (
               <p>Loading...</p>
@@ -125,10 +136,8 @@ const AdminDashboard = () => {
                     <tr>
                       <th className="px-3 py-2 md:px-6 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
                       <th className="px-3 py-2 md:px-6 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-
-                          <th className="px-3 py-2 md:px-6 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Qualification</th>
-                          <th className="px-3 py-2 md:px-6 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Experience</th>
-
+                      <th className="px-3 py-2 md:px-6 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Qualification</th>
+                      <th className="px-3 py-2 md:px-6 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Experience</th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
@@ -136,8 +145,55 @@ const AdminDashboard = () => {
                       <tr key={doctor._id}>
                         <td className="px-3 py-3 md:px-6 md:py-4 whitespace-nowrap text-sm">{doctor.name}</td>
                         <td className="px-3 py-3 md:px-6 md:py-4 whitespace-nowrap text-sm">{doctor.email}</td>
-                            <td className="px-3 py-3 md:px-6 md:py-4 whitespace-nowrap text-sm">{doctor.qualification}</td>
-                            <td className="px-3 py-3 md:px-6 md:py-4 whitespace-nowrap text-sm">{doctor.experience} years</td>
+                        <td className="px-3 py-3 md:px-6 md:py-4 whitespace-nowrap text-sm">{doctor.qualification}</td>
+                        <td className="px-3 py-3 md:px-6 md:py-4 whitespace-nowrap text-sm">{doctor.experience} years</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+
+          <div className="bg-white rounded-lg mb-36 shadow-md p-4 md:p-6">
+            <h2 className="text-lg md:text-xl font-bold mb-3 md:mb-4">Recent Appointments</h2>
+            {loading ? (
+              <p>Loading...</p>
+            ) : !appointments || appointments.length === 0 ? (
+              <p>No appointments found.</p>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-3 py-2 md:px-6 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Patient</th>
+                      <th className="px-3 py-2 md:px-6 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Doctor</th>
+                      <th className="px-3 py-2 md:px-6 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                      <th className="px-3 py-2 md:px-6 md:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {appointments.slice(0, 5).map((appointment) => (
+                      <tr key={appointment._id}>
+                        <td className="px-3 py-3 md:px-6 md:py-4 whitespace-nowrap text-sm">
+                          {appointment.patientId?.name || "Unknown Patient"}
+                        </td>
+                        <td className="px-3 py-3 md:px-6 md:py-4 whitespace-nowrap text-sm">
+                          {appointment.doctorId?.name || "Unknown Doctor"}
+                        </td>
+                        <td className="px-3 py-3 md:px-6 md:py-4 whitespace-nowrap text-sm">
+                          {new Date(appointment.appointmentDate).toLocaleDateString()}
+                        </td>
+                        <td className="px-3 py-3 md:px-6 md:py-4 whitespace-nowrap text-sm">
+                          <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                            appointment.status === "confirmed" ? "bg-green-100 text-green-800" :
+                            appointment.status === "pending" ? "bg-yellow-100 text-yellow-800" :
+                            appointment.status === "cancelled" ? "bg-red-100 text-red-800" :
+                            "bg-gray-100 text-gray-800"
+                          }`}>
+                            {appointment.status || "Unknown"}
+                          </span>
+                        </td>
                       </tr>
                     ))}
                   </tbody>

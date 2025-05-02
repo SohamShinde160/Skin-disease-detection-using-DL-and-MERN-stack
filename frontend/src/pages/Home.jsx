@@ -301,7 +301,6 @@ const Home = () => {
                 Signup
               </button>
             </div>
-
           </div>
 
           <img

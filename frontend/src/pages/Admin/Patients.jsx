@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AdminSidebar from "../../components/AdminSidebar";
-import { fetchAllPatients } from "../../redux/slices/adminSlice";
-import { FiSearch } from "react-icons/fi";
+import { fetchAllPatients, deletePatientThunk } from "../../redux/slices/adminSlice";
+import { FiSearch, FiTrash2 } from "react-icons/fi";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AdminPatients = () => {
   const dispatch = useDispatch();
@@ -10,6 +12,7 @@ const AdminPatients = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredPatients, setFilteredPatients] = useState([]);
   const [isMobile, setIsMobile] = useState(false);
+  const [deleteConfirmation, setDeleteConfirmation] = useState(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -38,10 +41,31 @@ const AdminPatients = () => {
     }
   }, [patients, searchTerm]);
 
+  const handleDeleteClick = (patient) => {
+    setDeleteConfirmation(patient);
+  };
+
+  const confirmDelete = async () => {
+    if (deleteConfirmation) {
+      try {
+        await dispatch(deletePatientThunk(deleteConfirmation._id)).unwrap();
+        toast.success(`Patient ${deleteConfirmation.name} deleted successfully`);
+        setDeleteConfirmation(null);
+      } catch (error) {
+        toast.error(`Failed to delete patient: ${error}`);
+      }
+    }
+  };
+
+  const cancelDelete = () => {
+    setDeleteConfirmation(null);
+  };
+
   return (
     <div className="flex flex-col font-semibold md:flex-row h-screen bg-gray-100">
+      <ToastContainer position="top-right" autoClose={3000} />
       {!isMobile && <AdminSidebar />}
-      
+
       <div className="flex-1 overflow-auto">
         <header className="bg-white shadow-sm p-4">
           <h1 className="text-xl md:text-2xl font-bold text-gray-800">Patient Details</h1>
@@ -78,12 +102,12 @@ const AdminPatients = () => {
                     <tr>
                       <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
                       <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-
-                          <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gender</th>
-                          <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Age</th>
-                          <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
-                          <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mobile</th>
-                          <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Joined</th>
+                      <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gender</th>
+                      <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Age</th>
+                      <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
+                      <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mobile</th>
+                      <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Joined</th>
+                      <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
 
                     </tr>
                   </thead>
@@ -100,13 +124,22 @@ const AdminPatients = () => {
                         </td>
                         <td className="px-3 md:px-6 py-4 whitespace-nowrap text-sm md:text-base">{patient.email}</td>
 
-                            <td className="px-3 md:px-6 py-4 whitespace-nowrap text-sm md:text-base">{patient.gender || "Not specified"}</td>
-                            <td className="px-3 md:px-6 py-4 whitespace-nowrap text-sm md:text-base">{patient.age || "Not specified"}</td>
-                            <td className="px-3 md:px-6 py-4 whitespace-nowrap text-sm md:text-base">{patient.location}</td>
-                            <td className="px-3 md:px-6 py-4 whitespace-nowrap text-sm md:text-base">{patient.mobileNo || "Not provided"}</td>
-                            <td className="px-3 md:px-6 py-4 whitespace-nowrap text-sm md:text-base">
-                              {new Date(patient.createdAt).toLocaleDateString()}
-                            </td>
+                        <td className="px-3 md:px-6 py-4 whitespace-nowrap text-sm md:text-base">{patient.gender || "Not specified"}</td>
+                        <td className="px-3 md:px-6 py-4 whitespace-nowrap text-sm md:text-base">{patient.age || "Not specified"}</td>
+                        <td className="px-3 md:px-6 py-4 whitespace-nowrap text-sm md:text-base">{patient.location}</td>
+                        <td className="px-3 md:px-6 py-4 whitespace-nowrap text-sm md:text-base">{patient.mobileNo || "Not provided"}</td>
+                        <td className="px-3 md:px-6 py-4 whitespace-nowrap text-sm md:text-base">
+                          {new Date(patient.createdAt).toLocaleDateString()}
+                        </td>
+                        <td className="px-3 md:px-6 py-4 whitespace-nowrap">
+                          <button
+                            onClick={() => handleDeleteClick(patient)}
+                            className="text-red-600 hover:text-red-900 flex items-center"
+                          >
+                            <FiTrash2 className="mr-1" />
+                            <span>Delete</span>
+                          </button>
+                        </td>
 
                       </tr>
                     ))}
@@ -119,6 +152,33 @@ const AdminPatients = () => {
       </div>
 
       {isMobile && <AdminSidebar />}
+
+      {/* Delete Confirmation Modal */}
+      {deleteConfirmation && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full">
+            <h3 className="text-xl font-bold mb-4">Confirm Delete</h3>
+            <p className="mb-6">
+              Are you sure you want to permanently delete patient <span className="font-bold">{deleteConfirmation.name}</span>?
+              This action cannot be undone and will also delete all associated records.
+            </p>
+            <div className="flex justify-end space-x-4">
+              <button
+                onClick={cancelDelete}
+                className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmDelete}
+                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

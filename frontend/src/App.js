@@ -12,6 +12,7 @@ import AdminDashboard from "./pages/Admin/Dashboard";
 import AdminPatients from "./pages/Admin/Patients";
 import AdminDoctors from "./pages/Admin/Doctors";
 import AdminDetectionHistory from "./pages/Admin/DetectionHistory";
+import AdminAppointments from "./pages/Admin/Appointments";
 import MyAppointments from "./pages/Patient/MyAppointments";
 import FindDermatologist from "./pages/Patient/FindDermatologist";
 import BookAppointment from "./pages/Patient/BookAppointment";
@@ -60,6 +61,7 @@ function App() {
           <Route path="/admin-patients" element={<AdminPatients />} />
           <Route path="/admin-doctors" element={<AdminDoctors />} />
           <Route path="/admin-detection-history" element={<AdminDetectionHistory />} />
+          <Route path="/admin-appointments" element={<AdminAppointments />} />
         </Route>
       </Routes>
     </Router>
