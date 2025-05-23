@@ -2,6 +2,9 @@
 
 This project is a comprehensive MERN (MongoDB, Express, React, Node.js) application for skin disease detection using a machine learning model. The application allows users to upload images of skin conditions, which are then analyzed by a machine learning model to detect potential skin diseases.
 
+## License
+[MIT License](LICENSE)
+
 ## Project Structure
 
 - **frontend/** - React frontend application
