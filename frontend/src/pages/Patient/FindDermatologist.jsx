@@ -10,7 +10,7 @@ const FindDermatologist = () => {
   const [lon, setLon] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const apiKey = "AlzaSyJ5f7_DgZSWJ-b3JdXTQTERmdMm5HRI8EF";
+  const apiKey = "AlzaSyPfYfwGbDKhrRdmDU_xCYr-J-TLwbIfMmH";
 
   useEffect(() => {
     if (lat && lon) {
